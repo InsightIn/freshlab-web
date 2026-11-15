@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreshLab — Cậu vất vả rùi. Có FreshLab đây.</title>
+  <meta name="description" content="FreshLab — Ba vị nước ép trái cây – rau củ cho ba khoảnh khắc của sinh viên: Focus, Reset, Boost. Dự án thương hiệu của nhóm Insight In." />
+
+  <!-- Google Fonts: Be Vietnam Pro & Mali (hỗ trợ đầy đủ dấu tiếng Việt) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Mali:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & BASE STYLES
+       ========================================================================== */
+    :root {
+      --primary: #246B4A;
+      --primary-hover: #1C553B;
+      --bg-primary: #F7FBF6;
+      --bg-secondary: #E8F5EC;
+      --bg-card: #FFFFFF;
+      --text-main: #263B32;
+      --text-muted: #66766B;
+      --border: #DFEAE1;
+
+      /* Dòng sản phẩm - kết hợp hệ màu chuẩn & sắc độ từ brand board */
+      --focus-accent: #78B88A;
+      --focus-soft: #EBF5EC;
+      --focus-board-1: #C9D9A0;
+      --focus-board-2: #9CB380;
+      --focus-board-3: #BFE3C8;
+
+      --reset-accent: #FFD56B;
+      --reset-deep: #D8A932;
+      --reset-soft: #FFF8E3;
+      --reset-board-1: #E3C34A;
+      --reset-board-2: #6B8F4E;
+      --reset-board-3: #D9E36B;
+
+      --boost-accent: #FFA76B;
+      --boost-deep: #E07D3C;
+      --boost-soft: #FFF1E6;
+      --boost-board-1: #F0934A;
+      --boost-board-2: #D98C3D;
+      --boost-board-3: #E0A52E;
+
+      --shadow-sm: 0 6px 20px rgba(36, 107, 74, 0.06);
+      --shadow-md: 0 14px 36px rgba(36, 107, 74, 0.09);
+      --shadow-lg: 0 22px 48px rgba(36, 107, 74, 0.13);
+
+      --radius-card: 24px;
+      --radius-pill: 9999px;
+      --container-max: 1160px;
+      --header-height: 76px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-height) + 16px);
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Be Vietnam Pro', 'Inter', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-main);
+      background-color: var(--bg-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ==========================================================================
+       2. LAYOUT & TYPOGRAPHY HELPERS
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: 20px;
+    }
+
+    .section {
+      padding-block: 84px;
+      position: relative;
+    }
+
+    .section--mint {
+      background-color: var(--bg-secondary);
+    }
+
+    .section--white {
+      background-color: #FFFFFF;
+    }
+
+    .section-header {
+      max-width: 680px;
+      margin-inline: auto;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(36, 107, 74, 0.08);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.6vw, 42px);
+      line-height: 1.24;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+      color: var(--text-main);
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .handwritten {
+      font-family: 'Mali', 'Be Vietnam Pro', cursive, sans-serif;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: var(--radius-pill);
+      font-size: 15.5px;
+      font-weight: 600;
+      border: 1.5px solid transparent;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease, border-color 0.22s ease;
+      white-space: nowrap;
+    }
+
+    .btn--primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(36, 107, 74, 0.22);
+    }
+
+    .btn--primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(36, 107, 74, 0.28);
+    }
+
+    .btn--secondary {
+      background-color: #FFFFFF;
+      color: var(--primary);
+      border-color: var(--border);
+    }
+
+    .btn--secondary:hover {
+      background-color: var(--bg-secondary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .btn--sm {
+      padding: 9px 18px;
+      font-size: 14px;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       3. HEADER & NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      height: var(--header-height);
+      background: rgba(247, 251, 246, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Mali', 'Be Vietnam Pro', cursive;
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--text-main);
+      transition: color 0.2s ease;
+      padding-block: 4px;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hamburger-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--text-main);
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      inset: var(--header-height) 0 0 0;
+      background: rgba(247, 251, 246, 0.98);
+      backdrop-filter: blur(12px);
+      z-index: 890;
+      padding: 24px 20px 36px;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-drawer.is-open {
+      display: flex;
+    }
+
+    .mobile-drawer a {
+      padding: 13px 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+    }
+
+    .mobile-drawer .btn {
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    @media (max-width: 960px) {
+      .nav-desktop {
+        display: none;
+      }
+      .hamburger-btn {
+        display: inline-flex;
+      }
+    }
+
+    /* ==========================================================================
+       4. SECTION 1: HERO
+       ========================================================================== */
+    .hero {
+      padding-block: 56px 76px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(191, 227, 200, 0.45), transparent 45%),
+        radial-gradient(circle at 12% 85%, rgba(255, 213, 107, 0.2), transparent 40%),
+        var(--bg-primary);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      align-items: center;
+      gap: 44px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: #E8F5EC;
+      border: 1px solid #CFE7D6;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: clamp(34px, 4.6vw, 56px);
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      margin: 0 0 18px;
+    }
+
+    .hero-title span {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 3px;
+      height: 10px;
+      background: rgba(120, 184, 138, 0.32);
+      border-radius: 99px;
+      z-index: -1;
+    }
+
+    .hero-subline {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary);
+      margin: 0 0 10px;
+    }
+
+    .hero-desc {
+      font-size: 16.5px;
+      color: var(--text-muted);
+      margin: 0 0 28px;
+      max-width: 530px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero-footnote {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .hero-dots {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .hero-dots i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* Hero Stage (3 chai mockup) */
+    .hero-visual {
+      position: relative;
+      background: linear-gradient(155deg, #FFFFFF 0%, #EEF7F0 100%);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 36px 24px 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-sticker {
+      position: absolute;
+      top: -14px;
+      right: 22px;
+      background: #FFF8E3;
+      border: 1.5px dashed #E3C34A;
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      transform: rotate(3deg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      align-items: end;
+      padding-top: 10px;
+    }
+
+    .hero-bottle-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.25s ease;
+    }
+
+    .hero-bottle-slot:hover {
+      transform: translateY(-6px);
+    }
+
+    .hero-bottle-slot--center {
+      transform: translateY(-10px);
+    }
+
+    .hero-bottle-slot--center:hover {
+      transform: translateY(-16px);
+    }
+
+    .hero-bottle-media {
+      width: 100%;
+      max-width: 140px;
+      aspect-ratio: 3 / 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-bottle-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 16px;
+    }
+
+    .hero-bottle-label {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    .hero-mockup-note {
+      margin: 18px 0 0;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        padding-block: 36px 56px;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .hero-visual {
+        padding: 28px 14px 22px;
+      }
+    }
+
+    /* ==========================================================================
+       5. SECTION 2: FRESHLAB HIỂU CẬU
+       ========================================================================== */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .insight-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .insight-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .insight-illu {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: var(--primary);
+    }
+
+    .insight-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .insight-card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 15.5px;
+    }
+
+    .insight-closing {
+      margin-top: 40px;
+      text-align: center;
+      background: #FFFFFF;
+      border: 1.5px solid #CFE7D6;
+      border-radius: 20px;
+      padding: 22px 28px;
+      max-width: 820px;
+      margin-inline: auto;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 860px) {
+      .insight-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       6. SECTION 3: KHÁM PHÁ BA DÒNG SẢN PHẨM
+       ========================================================================== */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .product-card {
+      border-radius: 26px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-stage {
+      padding: 28px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .product-stage--focus {
+      background: linear-gradient(180deg, #E8F5EC 0%, #F7FBF6 100%);
+    }
+
+    .product-stage--reset {
+      background: linear-gradient(180deg, #FFF5D4 0%, #FFFDF5 100%);
+    }
+
+    .product-stage--boost {
+      background: linear-gradient(180deg, #FFEADB 0%, #FFF9F4 100%);
+    }
+
+    .product-swatches {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .product-swatches span {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .product-media {
+      width: 156px;
+      height: 230px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+    }
+
+    .product-body {
+      padding: 22px 24px 26px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-name {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin: 0 0 6px;
+      line-height: 1.1;
+    }
+
+    .product-name--focus { color: #246B4A; }
+    .product-name--reset { color: #9E740B; }
+    .product-name--boost { color: #B8561A; }
+
+    .product-tagline {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0 0 10px;
+    }
+
+    .product-desc {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      margin: 0 0 16px;
+    }
+
+    .product-meta {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--text-main);
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .product-meta li strong {
+      color: var(--primary);
+    }
+
+    .product-footer {
+      margin-top: auto;
+    }
+
+    .product-footer .btn {
+      width: 100%;
+    }
+
+    @media (max-width: 960px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin-inline: auto;
+      }
+    }
+
+    /* ==========================================================================
+       7. SECTION 4: VÌ SAO LÀ FRESHLAB?
+       ========================================================================== */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .diff-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 26px 22px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.22s ease;
+    }
+
+    .diff-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .diff-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--bg-secondary);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .diff-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .diff-card p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 960px) {
+      .diff-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       8. SECTION 5: BẢNG GIÁ VÀ COMBO
+       ========================================================================== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 30px 26px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .price-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .price-card--featured {
+      border: 2px solid var(--primary);
+      background: linear-gradient(180deg, #F3FAF5 0%, #FFFFFF 48%);
+      box-shadow: var(--shadow-md);
+    }
+
+    .price-tag {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 700;
+      background: var(--bg-secondary);
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+
+    .price-card--featured .price-tag {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .price-card h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .price-amount {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.2;
+      margin: 4px 0 8px;
+    }
+
+    .price-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0 0 16px;
+    }
+
+    .price-strike {
+      text-decoration: line-through;
+      opacity: 0.75;
+      margin-right: 6px;
+    }
+
+    .price-save {
+      display: inline-block;
+      background: #FFF3D1;
+      color: #8C6305;
+      font-weight: 700;
+      font-size: 12.5px;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .price-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin: 0 0 24px;
+    }
+
+    .price-card .btn {
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .pricing-note {
+      margin: 28px auto 0;
+      max-width: 720px;
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 460px;
+        margin-inline: auto;
+      }
+    }
+
+    /* ==========================================================================
+       9. SECTION 6: FRESH TIME / CHIẾN DỊCH THƯƠNG HIỆU
+       ========================================================================== */
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .campaign-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 26px 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .campaign-badge {
+      display: inline-flex;
+      align-self: flex-start;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: var(--radius-pill);
+      background: #FFF3D6;
+      color: #885F04;
+    }
+
+    .campaign-card h3 {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .campaign-tagline {
+      margin: 0;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .campaign-text {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--text-muted);
+    }
+
+    /* Toa Fresh notes */
+    .toa-notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .toa-note {
+      background: #F7FBF6;
+      border: 1px dashed #9CB380;
+      border-radius: 14px;
+      padding: 11px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .toa-note:nth-child(2) { background: #FFF9E6; border-color: #E3C34A; }
+    .toa-note:nth-child(3) { background: #FFF2E8; border-color: #F0934A; }
+    .toa-note:nth-child(4) { background: #EBF6EE; border-color: #78B88A; }
+
+    /* Lab Station mini booth illustration */
+    .booth-box {
+      background: linear-gradient(180deg, #E8F5EC 0%, #F7FBF6 100%);
+      border: 1px solid #CFE7D6;
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .booth-caption {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin: 8px 0 0;
+    }
+
+    /* Fresh Time Challenge frames (khung mẫu nội dung, không giả mạo review người thật) */
+    .challenge-frames {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .challenge-frame {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .challenge-frame strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 960px) {
+      .campaign-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==========================================================================
+       10. SECTION 7: CÂU CHUYỆN FRESHLAB
+       ========================================================================== */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .story-visual {
+      background: linear-gradient(145deg, #E8F5EC 0%, #FFFFFF 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .story-quote {
+      margin-top: 20px;
+      background: #FFFFFF;
+      border-left: 4px solid var(--primary);
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .story-content p {
+      color: var(--text-muted);
+      margin: 0 0 16px;
+      font-size: 16.5px;
+    }
+
+    .story-signoff {
+      font-weight: 700;
+      color: var(--primary) !important;
+      font-size: 18px !important;
+    }
+
+    .story-credit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: var(--bg-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+    }
+
+    @media (max-width: 880px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    /* ==========================================================================
+       11. SECTION 8: FAQ ACCORDION
+       ========================================================================== */
+    .faq-list {
+      max-width: 820px;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .faq-item[data-open="true"] {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      text-align: left;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+      font-weight: 700;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item[data-open="true"] .faq-icon {
+      transform: rotate(45deg);
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .faq-panel {
+      display: none;
+      padding: 0 22px 20px;
+      color: var(--text-muted);
+      font-size: 15.5px;
+    }
+
+    .faq-item[data-open="true"] .faq-panel {
+      display: block;
+    }
+
+    /* ==========================================================================
+       12. SECTION 9: KẾT NỐI VỚI FRESHLAB
+       ========================================================================== */
+    .connect-box {
+      background: linear-gradient(135deg, #E8F5EC 0%, #F4FAF6 100%);
+      border: 1.5px solid #CFE7D6;
+      border-radius: 30px;
+      padding: 46px 36px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .connect-box h2 {
+      font-size: clamp(26px, 3.2vw, 36px);
+      line-height: 1.25;
+      margin: 0 0 12px;
+    }
+
+    .connect-box p {
+      color: var(--text-muted);
+      margin: 0 0 24px;
+      font-size: 16.5px;
+    }
+
+    .connect-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .form-status-note {
+      margin-top: 12px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .social-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .social-card h3 {
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .social-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      border-radius: 14px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      font-size: 14.5px;
+      font-weight: 600;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    a.social-item:hover {
+      border-color: var(--primary);
+      background: var(--bg-secondary);
+    }
+
+    .social-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    a.social-item .social-badge {
+      color: var(--primary);
+      border-color: #CFE7D6;
+    }
+
+    @media (max-width: 860px) {
+      .connect-box {
+        grid-template-columns: 1fr;
+        padding: 32px 22px;
+      }
+    }
+
+    /* ==========================================================================
+       13. SECTION 10: FOOTER
+       ========================================================================== */
+    .site-footer {
+      background-color: var(--primary);
+      color: #F7FBF6;
+      padding-block: 56px 32px;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 28px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(247, 251, 246, 0.18);
+    }
+
+    .footer-brand h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-family: 'Mali', 'Be Vietnam Pro', cursive;
+    }
+
+    .footer-brand p {
+      margin: 0;
+      color: rgba(247, 251, 246, 0.88);
+      font-size: 15.5px;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 24px;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-nav a {
+      font-size: 14.5px;
+      color: rgba(247, 251, 246, 0.9);
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-nav a:hover {
+      opacity: 0.72;
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13.5px;
+      color: rgba(247, 251, 246, 0.82);
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       14. PRODUCT DETAIL MODAL
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 46, 37, 0.56);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background: #FFFFFF;
+      border-radius: 28px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-primary);
+      color: var(--text-main);
+      font-size: 20px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .modal-stage {
+      border-radius: 22px;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+    }
+
+    .modal-stage img {
+      max-height: 250px;
+      object-fit: contain;
+    }
+
+    .modal-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+
+    .modal-tagline {
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--text-main);
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      margin: 0 0 16px;
+      font-size: 15px;
+    }
+
+    .modal-specs {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .modal-note {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin: 0 0 16px;
+    }
+
+    @media (max-width: 680px) {
+      .modal-dialog {
+        padding: 22px 18px;
+      }
+      .modal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================================
+       HEADER
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#hero" class="brand-logo" aria-label="FreshLab Trang chủ">
+        <span id="headerLogoSlot">
+          <span class="brand-wordmark">
+            FreshLab
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 18C12 11 16 6 21 5C20 11 16 15 12 18Z" fill="#78B88A"/>
+              <path d="M11 18C7 14 5 10 6 5C10 7 12 12 11 18Z" fill="#246B4A"/>
+            </svg>
+          </span>
+        </span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Điều hướng chính">
+        <ul class="nav-links">
+          <li><a href="#hero">Trang chủ</a></li>
+          <li><a href="#san-pham">Ba vị FreshLab</a></li>
+          <li><a href="#fresh-time">Fresh Time</a></li>
+          <li><a href="#cau-chuyen">Về FreshLab</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#ket-noi">Liên hệ</a></li>
+        </ul>
+        <a href="#san-pham" class="btn btn--primary btn--sm">Khám phá 3 vị</a>
+      </nav>
+
+      <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mobileDrawer">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <a href="#hero" class="mobile-nav-link">Trang chủ</a>
+    <a href="#san-pham" class="mobile-nav-link">Ba vị FreshLab</a>
+    <a href="#fresh-time" class="mobile-nav-link">Fresh Time</a>
+    <a href="#cau-chuyen" class="mobile-nav-link">Về FreshLab</a>
+    <a href="#faq" class="mobile-nav-link">FAQ</a>
+    <a href="#ket-noi" class="mobile-nav-link">Liên hệ</a>
+    <a href="#san-pham" class="btn btn--primary mobile-nav-link">Khám phá 3 vị</a>
+  </div>
+
+  <main>
+    <!-- ====================================================================
+         SECTION 1: HERO / TRANG CHỦ
+         ==================================================================== -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-kicker">FRESHLAB • FRESH MOMENTS FOR STUDENTS</div>
+          <h1 class="hero-title">
+            Cậu vất vả rùi.<br />
+            <span>Có FreshLab đây.</span>
+          </h1>
+          <p class="hero-subline">Ba vị nước ép trái cây – rau củ cho ba khoảnh khắc của sinh viên.</p>
+          <p class="hero-desc">
+            Deadline, bài nhóm, lịch học kín mít… Một ngày của cậu có bao nhiêu việc phải lo? FreshLab mang đến ba lựa chọn nước ép trái cây – rau củ cho những khoảnh khắc quen thuộc của sinh viên. Một chút tươi mới, một lời nhắn dễ thương, dành riêng cho cậu.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#san-pham" class="btn btn--primary">Khám phá FreshLab</a>
+            <a href="#bang-gia" class="btn btn--secondary">Xem bảng giá</a>
+          </div>
+
+          <div class="hero-footnote">
+            <span class="hero-dots" aria-hidden="true">
+              <i style="background:#78B88A"></i>
+              <i style="background:#FFD56B"></i>
+              <i style="background:#FFA76B"></i>
+            </span>
+            <span>Focus • Reset • Boost – Ba lựa chọn cho ba khoảnh khắc.</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-sticker handwritten">Fresh Campus Lifestyle</div>
+          <div class="hero-trio">
+            <div class="hero-bottle-slot">
+              <div class="hero-bottle-media" data-bottle-slot="focus"></div>
+              <span class="hero-bottle-label" style="background:#E8F5EC; color:#246B4A;">FOCUS</span>
+            </div>
+            <div class="hero-bottle-slot hero-bottle-slot--center">
+              <div class="hero-bottle-media" data-bottle-slot="reset"></div>
+              <span class="hero-bottle-label" style="background:#FFF3D1; color:#9E740B;">RESET</span>
+            </div>
+            <div class="hero-bottle-slot">
+              <div class="hero-bottle-media" data-bottle-slot="boost"></div>
+              <span class="hero-bottle-label" style="background:#FFEADB; color:#B8561A;">BOOST</span>
+            </div>
+          </div>
+          <p class="hero-mockup-note">Hình ảnh minh họa ý tưởng bao bì sản phẩm dự kiến của FreshLab (250 mL).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 2: FRESHLAB HIỂU CẬU
+         ==================================================================== -->
+    <section class="section section--mint" id="hieu-cau">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">FreshLab hiểu cậu</span>
+          <h2 class="section-title">Hôm nay cậu đã vất vả thế nào?</h2>
+          <p class="section-desc">Những khoảnh khắc quen thuộc trong một ngày của sinh viên 18–23 tuổi.</p>
+        </div>
+
+        <div class="insight-grid">
+          <article class="insight-card reveal">
+            <div class="insight-illu" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+                <line x1="2" y1="20" x2="22" y2="20"></line>
+                <circle cx="17" cy="9" r="2.5"></circle>
+              </svg>
+            </div>
+            <h3>Deadline dí sát</h3>
+            <p>Bài nhóm chưa xong, deadline đã tới? Có những ngày chỉ muốn dành vài phút cho riêng mình.</p>
+          </article>
+
+          <article class="insight-card reveal">
+            <div class="insight-illu" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 20V10a7 7 0 0 1 14 0v10"></path>
+                <rect x="3" y="14" width="18" height="6" rx="2"></rect>
+                <path d="M9 14v-2a3 3 0 0 1 6 0v2"></path>
+              </svg>
+            </div>
+            <h3>Một ngày dài</h3>
+            <p>Học cả ngày, chạy từ lớp này sang lớp khác. Đôi khi một khoảng nghỉ nhỏ cũng rất đáng quý.</p>
+          </article>
+
+          <article class="insight-card reveal">
+            <div class="insight-illu" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+              </svg>
+            </div>
+            <h3>Sáng mai bắt đầu lại</h3>
+            <p>Ngày mới lại có những câu chuyện mới. Cứ bắt đầu theo nhịp riêng của cậu nhé.</p>
+          </article>
+        </div>
+
+        <div class="insight-closing reveal">
+          “FreshLab không làm deadline biến mất. FreshLab chỉ muốn ở cạnh cậu trong những khoảnh khắc ấy.”
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: KHÁM PHÁ BA DÒNG SẢN PHẨM
+         ==================================================================== -->
+    <section class="section" id="san-pham">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Khám phá ba dòng sản phẩm</span>
+          <h2 class="section-title">Hôm nay cậu chọn vị nào?</h2>
+          <p class="section-desc">Ba công thức trái cây – rau củ được đề xuất theo ba tình huống quen thuộc. Chọn một vị hợp với khoảnh khắc của cậu.</p>
+        </div>
+
+        <div class="products-grid">
+          <!-- FOCUS -->
+          <article class="product-card reveal">
+            <div class="product-stage product-stage--focus">
+              <div class="product-swatches" aria-hidden="true">
+                <span style="background:#C9D9A0"></span>
+                <span style="background:#9CB380"></span>
+                <span style="background:#BFE3C8"></span>
+              </div>
+              <div class="product-media" data-bottle-slot="focus"></div>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name product-name--focus">FOCUS</h3>
+              <p class="product-tagline">Deadline tới đâu, Focus tới đó.</p>
+              <p class="product-desc">Một lựa chọn thanh mát cho những buổi học bài, làm bài nhóm hay ngồi ở thư viện.</p>
+              <ul class="product-meta">
+                <li><strong>Nguyên liệu dự kiến:</strong> Táo xanh, dưa leo, một lượng nhỏ cần tây, chanh, bạc hà và gừng.</li>
+                <li><strong>Hương vị định hướng:</strong> Thanh mát, chua nhẹ.</li>
+                <li><strong>Tình huống:</strong> Học bài, ôn tập, làm bài nhóm.</li>
+              </ul>
+              <div class="product-footer">
+                <button type="button" class="btn btn--secondary" data-open-product="focus">Xem chi tiết</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- RESET -->
+          <article class="product-card reveal">
+            <div class="product-stage product-stage--reset">
+              <div class="product-swatches" aria-hidden="true">
+                <span style="background:#E3C34A"></span>
+                <span style="background:#6B8F4E"></span>
+                <span style="background:#D9E36B"></span>
+              </div>
+              <div class="product-media" data-bottle-slot="reset"></div>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name product-name--reset">RESET</h3>
+              <p class="product-tagline">Một ngày dài rồi, nghỉ một chai Reset nhé.</p>
+              <p class="product-desc">Cho những lúc cậu vừa hoàn thành một ngày bận rộn và muốn dành một khoảng nghỉ dịu nhẹ.</p>
+              <ul class="product-meta">
+                <li><strong>Nguyên liệu dự kiến:</strong> Dứa, dưa leo, một lượng nhỏ cải bó xôi, chanh.</li>
+                <li><strong>Hương vị định hướng:</strong> Chua ngọt, dịu nhẹ.</li>
+                <li><strong>Tình huống:</strong> Sau giờ học, sau một ngày dài.</li>
+              </ul>
+              <div class="product-footer">
+                <button type="button" class="btn btn--secondary" data-open-product="reset">Xem chi tiết</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- BOOST -->
+          <article class="product-card reveal">
+            <div class="product-stage product-stage--boost">
+              <div class="product-swatches" aria-hidden="true">
+                <span style="background:#F0934A"></span>
+                <span style="background:#D98C3D"></span>
+                <span style="background:#E0A52E"></span>
+              </div>
+              <div class="product-media" data-bottle-slot="boost"></div>
+            </div>
+            <div class="product-body">
+              <h3 class="product-name product-name--boost">BOOST</h3>
+              <p class="product-tagline">Start fresh. Go Boost.</p>
+              <p class="product-desc">Một lựa chọn mang sắc màu tươi sáng cho buổi sáng trước khi cậu bắt đầu lịch học.</p>
+              <ul class="product-meta">
+                <li><strong>Nguyên liệu dự kiến:</strong> Cam, cà rốt, một lượng nhỏ gừng, một lượng rất nhỏ nghệ.</li>
+                <li><strong>Hương vị định hướng:</strong> Ngọt dịu, thơm trái cây.</li>
+                <li><strong>Tình huống:</strong> Buổi sáng, trước giờ học.</li>
+              </ul>
+              <div class="product-footer">
+                <button type="button" class="btn btn--secondary" data-open-product="boost">Xem chi tiết</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 4: VÌ SAO LÀ FRESHLAB?
+         ==================================================================== -->
+    <section class="section section--mint" id="khac-biet">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Điều gì làm FreshLab khác biệt</span>
+          <h2 class="section-title">FreshLab có gì khác?</h2>
+          <p class="section-desc">Không chỉ là một chai nước ép, FreshLab muốn tạo ra trải nghiệm gần gũi với đời sống sinh viên.</p>
+        </div>
+
+        <div class="diff-grid">
+          <article class="diff-card reveal">
+            <div class="diff-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"></circle>
+                <polyline points="12 7 12 12 15 14"></polyline>
+              </svg>
+            </div>
+            <h3>Theo nhịp sống của cậu</h3>
+            <p>Focus, Reset và Boost được xây dựng theo những thời điểm sử dụng quen thuộc, để cậu dễ lựa chọn.</p>
+          </article>
+
+          <article class="diff-card reveal">
+            <div class="diff-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22c4-4 8-7.5 8-12a8 8 0 1 0-16 0c0 4.5 4 8 8 12z"></path>
+                <path d="M12 6v6"></path>
+              </svg>
+            </div>
+            <h3>Thành phần rõ ràng</h3>
+            <p>FreshLab hướng đến việc cung cấp thông tin nguyên liệu, thành phần và hướng dẫn bảo quản minh bạch.</p>
+          </article>
+
+          <article class="diff-card reveal">
+            <div class="diff-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="3" width="8" height="4" rx="1"></rect>
+                <path d="M7 10a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-9z"></path>
+              </svg>
+            </div>
+            <h3>Linh hoạt, tiện lợi</h3>
+            <p>Đề xuất hai dung tích 250 mL và 500 mL, phù hợp những nhu cầu sử dụng khác nhau.</p>
+          </article>
+
+          <article class="diff-card reveal">
+            <div class="diff-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"></path>
+                <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"></path>
+                <path d="m14 16-3 3 3 3"></path>
+                <path d="M8.293 13.596 7.196 9.5 3.1 10.598"></path>
+                <path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"></path>
+                <path d="m13.378 9.633 4.096 1.098 1.097-4.096"></path>
+              </svg>
+            </div>
+            <h3>Cùng nhau sống xanh</h3>
+            <p>FreshLab dự kiến phát triển chương trình thu hồi chai và ưu đãi phù hợp, với quy trình vệ sinh được kiểm soát.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 5: BẢNG GIÁ VÀ COMBO
+         ==================================================================== -->
+    <section class="section" id="bang-gia">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Bảng giá đề xuất</span>
+          <h2 class="section-title">Một chút Fresh cho ngày của cậu.</h2>
+          <p class="section-desc">Những lựa chọn được FreshLab đề xuất để cậu dễ tìm thấy quy cách phù hợp.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card reveal">
+            <span class="price-tag">Grab &amp; Go</span>
+            <h3>Fresh Daily 250 mL</h3>
+            <div class="price-amount">39.000đ</div>
+            <p class="price-sub">Quy cách 1 chai 250 mL</p>
+            <p class="price-desc">Chai nhỏ, tiện mang theo trong balo khi lên lớp hoặc ngồi thư viện.</p>
+            <a href="#san-pham" class="btn btn--secondary">Khám phá hương vị</a>
+          </article>
+
+          <article class="price-card reveal">
+            <span class="price-tag">Stay &amp; Sip</span>
+            <h3>Fresh Daily 500 mL</h3>
+            <div class="price-amount">59.000đ</div>
+            <p class="price-sub">Quy cách 1 chai 500 mL</p>
+            <p class="price-desc">Dung tích lớn hơn cho nhu cầu cá nhân trong những buổi học dài.</p>
+            <a href="#san-pham" class="btn btn--secondary">Khám phá hương vị</a>
+          </article>
+
+          <article class="price-card price-card--featured reveal">
+            <span class="price-tag">Combo 3 vị</span>
+            <h3>Fresh Pack</h3>
+            <div class="price-amount">109.000đ</div>
+            <p class="price-sub">
+              Gồm 3 chai × 250 mL ·
+              <span class="price-strike">117.000đ</span>
+              <span class="price-save">Tiết kiệm 8.000đ</span>
+            </p>
+            <p class="price-desc">Một combo gồm ba dòng Focus, Reset và Boost, có thể lựa chọn để dùng chung với bạn bè.</p>
+            <a href="#san-pham" class="btn btn--primary">Khám phá hương vị</a>
+          </article>
+        </div>
+
+        <p class="pricing-note">
+          Giá bán và các quy cách trên là đề xuất của dự án FreshLab, có thể được điều chỉnh sau giai đoạn thử nghiệm.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 6: FRESH TIME – CHIẾN DỊCH THƯƠNG HIỆU
+         ==================================================================== -->
+    <section class="section section--mint" id="fresh-time">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Chiến dịch dự kiến</span>
+          <h2 class="section-title">Cậu vất vả rùi. Fresh Time thôi!</h2>
+          <p class="section-desc">Những hoạt động FreshLab dự kiến mang đến để khoảng nghỉ của sinh viên trở nên thú vị hơn.</p>
+        </div>
+
+        <div class="campaign-grid">
+          <!-- Hoạt động 1: Toa Fresh -->
+          <article class="campaign-card reveal">
+            <span class="campaign-badge">Hoạt động dự kiến</span>
+            <h3>TOA FRESH</h3>
+            <p class="campaign-tagline">Một lời nhắn nhỏ, một chút đồng hành.</p>
+            <p class="campaign-text">Toa Fresh là ý tưởng những tấm thẻ mang lời nhắn dễ thương, gắn cùng mã QR để cậu khám phá FreshLab và chia sẻ cảm xúc.</p>
+            <div class="toa-notes">
+              <div class="toa-note handwritten">“Deadline rồi cũng sẽ qua!”</div>
+              <div class="toa-note handwritten">“Hôm nay cậu đã cố gắng nhiều rồi.”</div>
+              <div class="toa-note handwritten">“Nghỉ một chút cũng được mà.”</div>
+              <div class="toa-note handwritten">“Cố lên, nhưng đừng quên chăm sóc bản thân nhé.”</div>
+            </div>
+          </article>
+
+          <!-- Hoạt động 2: Lab Station -->
+          <article class="campaign-card reveal">
+            <span class="campaign-badge">Hoạt động dự kiến</span>
+            <h3>LAB STATION</h3>
+            <p class="campaign-tagline">Ghé một chút, khám phá một vị Fresh.</p>
+            <p class="campaign-text">Lab Station là điểm trải nghiệm và dùng thử FreshLab dự kiến tổ chức tại khu vực trường đại học được chấp thuận. Sinh viên có thể tìm hiểu ba dòng nước ép và chia sẻ cảm nhận về hương vị.</p>
+            <div class="booth-box">
+              <svg width="210" height="112" viewBox="0 0 210 112" fill="none" role="img" aria-label="Minh họa quầy trải nghiệm Lab Station màu xanh mint cùng ba chai FreshLab">
+                <rect x="20" y="14" width="170" height="24" rx="8" fill="#246B4A"/>
+                <text x="105" y="30" text-anchor="middle" fill="#F7FBF6" font-size="11" font-weight="700" font-family="Be Vietnam Pro, sans-serif">LAB STATION</text>
+                <line x1="36" y1="38" x2="36" y2="70" stroke="#9CB380" stroke-width="3"/>
+                <line x1="174" y1="38" x2="174" y2="70" stroke="#9CB380" stroke-width="3"/>
+                <rect x="26" y="70" width="158" height="32" rx="8" fill="#BFE3C8" stroke="#246B4A" stroke-width="1.5"/>
+                <!-- 3 mini bottles -->
+                <rect x="74" y="48" width="14" height="22" rx="4" fill="#78B88A" stroke="#246B4A" stroke-width="1.2"/>
+                <rect x="98" y="45" width="14" height="25" rx="4" fill="#FFD56B" stroke="#9E740B" stroke-width="1.2"/>
+                <rect x="122" y="48" width="14" height="22" rx="4" fill="#FFA76B" stroke="#B8561A" stroke-width="1.2"/>
+              </svg>
+              <p class="booth-caption">Minh họa quầy trải nghiệm Lab Station dự kiến.</p>
+            </div>
+          </article>
+
+          <!-- Hoạt động 3: Fresh Time Challenge -->
+          <article class="campaign-card reveal">
+            <span class="campaign-badge">Hoạt động dự kiến</span>
+            <h3>FRESH TIME CHALLENGE</h3>
+            <p class="campaign-tagline">Khoảnh khắc Fresh của cậu là gì?</p>
+            <p class="campaign-text">Fresh Time Challenge khuyến khích sinh viên chia sẻ những khoảng nghỉ, hoạt động thường ngày hoặc lời nhắn tích cực dành cho bạn bè cùng hashtag <strong>#FreshTimeCheck</strong>.</p>
+            <div class="challenge-frames">
+              <div class="challenge-frame">
+                <strong>#FreshTimeCheck</strong>
+                Góc học bài buổi chiều &amp; lời nhắn cho nhóm bạn.
+              </div>
+              <div class="challenge-frame">
+                <strong>#FreshTimeCheck</strong>
+                Khoảng nghỉ 15 phút sau giờ học trên sân trường.
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 7: CÂU CHUYỆN FRESHLAB
+         ==================================================================== -->
+    <section class="section" id="cau-chuyen">
+      <div class="container story-grid">
+        <div class="story-visual reveal">
+          <svg viewBox="0 0 420 260" fill="none" role="img" aria-label="Minh họa không gian học tập sinh viên cùng sách vở và nước ép FreshLab">
+            <rect width="420" height="260" rx="20" fill="#F7FBF6"/>
+            <circle cx="340" cy="60" r="36" fill="#FFF3D1"/>
+            <rect x="40" y="160" width="160" height="22" rx="6" fill="#DFEBE2"/>
+            <rect x="52" y="138" width="140" height="22" rx="6" fill="#CFE3D5"/>
+            <text x="64" y="153" fill="#263B32" font-size="10" font-weight="600" font-family="Be Vietnam Pro, sans-serif">Good Vibes</text>
+            <text x="54" y="175" fill="#263B32" font-size="10" font-weight="600" font-family="Be Vietnam Pro, sans-serif">Healthy Lifestyle</text>
+            <!-- Sổ tay -->
+            <rect x="230" y="172" width="130" height="52" rx="8" fill="#FFFFFF" stroke="#DFEAE1" stroke-width="2"/>
+            <text x="246" y="196" fill="#246B4A" font-size="11" font-weight="700" font-family="Mali, cursive">Small steps,</text>
+            <text x="246" y="212" fill="#246B4A" font-size="11" font-weight="700" font-family="Mali, cursive">Big changes</text>
+            <!-- Chai minh họa -->
+            <rect x="200" y="72" width="52" height="106" rx="16" fill="#78B88A" stroke="#246B4A" stroke-width="2"/>
+            <rect x="213" y="56" width="26" height="16" rx="4" fill="#F7FBF6" stroke="#246B4A" stroke-width="2"/>
+            <rect x="211" y="48" width="30" height="9" rx="3" fill="#E3C34A"/>
+            <path d="M206 112 C206 96, 246 96, 246 112 L246 164 L206 164 Z" fill="#F7FBF6"/>
+            <text x="226" y="128" text-anchor="middle" fill="#246B4A" font-size="9" font-weight="700" font-family="Mali, cursive">FreshLab</text>
+            <text x="226" y="144" text-anchor="middle" fill="#263B32" font-size="8" font-weight="700" font-family="Be Vietnam Pro, sans-serif">FOCUS</text>
+          </svg>
+          <div class="story-quote handwritten">
+            “Không phải làm mọi thứ hoàn hảo. Chỉ cần hôm nay cậu đã cố gắng.”
+          </div>
+        </div>
+
+        <div class="story-content reveal">
+          <span class="eyebrow">Câu chuyện FreshLab</span>
+          <h2 class="section-title">FreshLab bắt đầu từ một câu hỏi nhỏ.</h2>
+          <p>Giữa những ngày chạy deadline, làm bài nhóm và lịch học nối tiếp, chúng mình nhận ra đôi khi sinh viên không cần một lời động viên quá lớn. Chỉ cần ai đó hỏi: “Cậu có mệt không?”</p>
+          <p>Từ suy nghĩ ấy, FreshLab được hình thành như một ý tưởng nước ép trái cây – rau củ gắn với những khoảnh khắc trong cuộc sống sinh viên.</p>
+          <p>Focus, Reset và Boost không phải lời hứa về công dụng đặc biệt. Đó là ba lựa chọn cho ba tình huống quen thuộc, cùng gửi đi một thông điệp: cậu luôn xứng đáng có những khoảng nghỉ và sự quan tâm.</p>
+          <p class="story-signoff">Cậu vất vả rùi. Có FreshLab đây.</p>
+          <div class="story-credit">Một dự án phát triển thương hiệu của nhóm Insight In.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 8: FAQ / CÂU HỎI THƯỜNG GẶP
+         ==================================================================== -->
+    <section class="section section--mint" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Giải đáp thắc mắc</span>
+          <h2 class="section-title">Câu hỏi thường gặp</h2>
+          <p class="section-desc">Những thông tin minh bạch về định hướng sản phẩm và kế hoạch phát triển dự án FreshLab.</p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item" data-open="true">
+            <button type="button" class="faq-trigger" aria-expanded="true">
+              <span>1. FreshLab là gì?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel">
+              FreshLab là ý tưởng thương hiệu nước ép trái cây kết hợp rau củ, hướng đến sinh viên 18–23 tuổi và những tình huống sử dụng quen thuộc trong ngày.
+            </div>
+          </div>
+
+          <div class="faq-item" data-open="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>2. Focus, Reset và Boost khác nhau như thế nào?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel">
+              Ba dòng được đề xuất với công thức và hương vị khác nhau, gắn với các tình huống học tập, nghỉ ngơi sau ngày dài và buổi sáng. Tên sản phẩm không thể hiện công dụng điều trị hoặc cải thiện sức khỏe.
+            </div>
+          </div>
+
+          <div class="faq-item" data-open="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>3. FreshLab có thêm đường không?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel">
+              FreshLab định hướng phát triển công thức không bổ sung đường. Thành phần chính thức sẽ được công bố sau khi hoàn thiện và kiểm chứng công thức.
+            </div>
+          </div>
+
+          <div class="faq-item" data-open="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>4. Sản phẩm cần bảo quản như thế nào?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel">
+              FreshLab định hướng sản phẩm cần được bảo quản lạnh. Nhiệt độ và hạn sử dụng chính thức sẽ được xác định qua kiểm nghiệm và thể hiện trên nhãn sản phẩm.
+            </div>
+          </div>
+
+          <div class="faq-item" data-open="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>5. Có thể mua FreshLab ở đâu?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel">
+              FreshLab đang được xây dựng trong khuôn khổ đề án phát triển thương hiệu. Các kênh phân phối dự kiến gồm điểm bán gần trường, Lab Station và ứng dụng giao hàng khi đáp ứng điều kiện vận hành.
+            </div>
+          </div>
+
+          <div class="faq-item" data-open="false">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span>6. FreshLab có chương trình thu hồi chai không?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel">
+              Đây là hoạt động dự kiến. Phương án thu hồi, vệ sinh chai và ưu đãi sẽ cần được thử nghiệm trước khi áp dụng.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 9: KẾT NỐI VỚI FRESHLAB
+         ==================================================================== -->
+    <section class="section" id="ket-noi">
+      <div class="container">
+        <div class="connect-box reveal">
+          <div>
+            <span class="eyebrow">Kết nối cùng FreshLab</span>
+            <h2>Có điều gì muốn nhắn FreshLab không?</h2>
+            <p>Ý tưởng, hương vị cậu muốn thử hay một lời nhắn dễ thương – FreshLab muốn nghe từ cậu.</p>
+            <div class="connect-actions" id="googleFormSlot"></div>
+            <p class="form-status-note" id="formStatusNote"></p>
+          </div>
+
+          <div class="social-card">
+            <h3>Kênh thông tin FreshLab</h3>
+            <div class="social-list" id="socialLinksSlot"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================================================================
+       SECTION 10: FOOTER
+       ==================================================================== -->
+  <footer class="site-footer" id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h2>FreshLab</h2>
+          <p>Cậu vất vả rùi. Có FreshLab đây.</p>
+        </div>
+
+        <ul class="footer-nav">
+          <li><a href="#hero">Trang chủ</a></li>
+          <li><a href="#san-pham">Sản phẩm</a></li>
+          <li><a href="#cau-chuyen">Câu chuyện FreshLab</a></li>
+          <li><a href="#fresh-time">Fresh Time</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#ket-noi">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 FreshLab – Dự án thương hiệu của nhóm Insight In.</p>
+        <p>Website giới thiệu ý tưởng thương hiệu phục vụ học phần Marketing. Sản phẩm, giá bán và hoạt động ra mắt đang ở giai đoạn đề xuất.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================================================================
+       PRODUCT DETAIL MODAL
+       ==================================================================== -->
+  <div class="modal-backdrop" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Đóng cửa sổ chi tiết">&times;</button>
+      <div class="modal-grid">
+        <div class="modal-stage" id="modalStage"></div>
+        <div>
+          <h3 class="modal-title" id="modalTitle"></h3>
+          <p class="modal-tagline" id="modalTagline"></p>
+          <p class="modal-desc" id="modalDesc"></p>
+          <div class="modal-specs" id="modalSpecs"></div>
+          <p class="modal-note">Thông tin nguyên liệu và bao bì là đề xuất của dự án FreshLab (chưa hoàn tất kiểm nghiệm thương mại).</p>
+          <button type="button" class="btn btn--primary" id="modalBackBtn">Quay lại</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       JAVASCRIPT CẤU HÌNH TẬP TRUNG & TƯƠNG TÁC
+       ====================================================================== -->
+  <script>
+    /**
+     * KHU VỰC CẤU HÌNH TẬP TRUNG (DỄ CHỈNH SỬA)
+     * Dán đường dẫn công khai vào các biến bên dưới. Nếu để trống "",
+     * hệ thống sẽ dùng mockup vector minh họa hoặc hiển thị trạng thái "Sắp cập nhật".
+     */
+    const FRESHLAB_CONFIG = {
+      LOGO_URL: "",
+      PRODUCT_FOCUS_IMAGE: "",
+      PRODUCT_RESET_IMAGE: "",
+      PRODUCT_BOOST_IMAGE: "",
+      GOOGLE_FORM_URL: "",
+      TIKTOK_URL: "",
+      INSTAGRAM_URL: "",
+      FACEBOOK_URL: "",
+      WEBSITE_PUBLIC_URL: ""
+    };
+
+    const PRODUCTS_DATA = {
+      focus: {
+        name: "FOCUS",
+        color: "#246B4A",
+        juiceFill: "#89BA69",
+        juiceHighlight: "#A8CF87",
+        stageBg: "#E8F5EC",
+        tagline: "Deadline tới đâu, Focus tới đó.",
+        desc: "Một lựa chọn thanh mát cho những buổi học bài, làm bài nhóm hay ngồi ở thư viện.",
+        ingredients: "Táo xanh, dưa leo, một lượng nhỏ cần tây, chanh, bạc hà và gừng.",
+        flavor: "Thanh mát, chua nhẹ.",
+        occasion: "Học bài, ôn tập, làm bài nhóm.",
+        volume: "Đề xuất 250 mL (39.000đ) và 500 mL (59.000đ).",
+        shortLabel: "Green Apple • Cucumber • Celery • Mint • Ginger",
+        imageKey: "PRODUCT_FOCUS_IMAGE"
+      },
+      reset: {
+        name: "RESET",
+        color: "#9E740B",
+        juiceFill: "#E5C642",
+        juiceHighlight: "#F3D96B",
+        stageBg: "#FFF6D9",
+        tagline: "Một ngày dài rồi, nghỉ một chai Reset nhé.",
+        desc: "Cho những lúc cậu vừa hoàn thành một ngày bận rộn và muốn dành một khoảng nghỉ dịu nhẹ.",
+        ingredients: "Dứa, dưa leo, một lượng nhỏ cải bó xôi, chanh.",
+        flavor: "Chua ngọt, dịu nhẹ.",
+        occasion: "Sau giờ học, sau một ngày dài.",
+        volume: "Đề xuất 250 mL (39.000đ) và 500 mL (59.000đ).",
+        shortLabel: "Pineapple • Spinach • Cucumber • Lemon",
+        imageKey: "PRODUCT_RESET_IMAGE"
+      },
+      boost: {
+        name: "BOOST",
+        color: "#B8561A",
+        juiceFill: "#F28B30",
+        juiceHighlight: "#FFA959",
+        stageBg: "#FFEADB",
+        tagline: "Start fresh. Go Boost.",
+        desc: "Một lựa chọn mang sắc màu tươi sáng cho buổi sáng trước khi cậu bắt đầu lịch học.",
+        ingredients: "Cam, cà rốt, một lượng nhỏ gừng, một lượng rất nhỏ nghệ.",
+        flavor: "Ngọt dịu, thơm trái cây.",
+        occasion: "Buổi sáng, trước giờ học.",
+        volume: "Đề xuất 250 mL (39.000đ) và 500 mL (59.000đ).",
+        shortLabel: "Orange • Carrot • Ginger • Turmeric",
+        imageKey: "PRODUCT_BOOST_IMAGE"
+      }
+    };
+
+    /* Tạo SVG mockup chai thủy tinh nắp vàng, nhãn vòm kem đồng bộ với ảnh mẫu (không chứa tuyên bố chưa kiểm nghiệm) */
+    function createBottleSVG(key) {
+      const p = PRODUCTS_DATA[key];
+      return `
+        <svg viewBox="0 0 180 280" fill="none" role="img" aria-label="Minh họa chai nước ép FreshLab ${p.name} 250 ml">
+          <ellipse cx="90" cy="264" rx="52" ry="8" fill="rgba(36, 107, 74, 0.14)"/>
+          <!-- Thân chai -->
+          <path d="M68 48 L112 48 L115 70 C128 84 140 96 140 120 L140 242 C140 253 131 260 120 260 L60 260 C49 260 40 253 40 242 L40 120 C40 96 52 84 65 70 Z" fill="${p.juiceFill}" stroke="rgba(38,59,50,0.22)" stroke-width="2"/>
+          <path d="M52 122 C52 104 60 94 70 82 L70 248 L56 248 C53 248 52 244 52 240 Z" fill="${p.juiceHighlight}" opacity="0.45"/>
+          <!-- Cổ thủy tinh & nắp vàng -->
+          <rect x="66" y="34" width="48" height="16" rx="4" fill="#F2F7F3" stroke="rgba(38,59,50,0.22)" stroke-width="1.5"/>
+          <rect x="62" y="20" width="56" height="15" rx="5" fill="#D4AF37" stroke="#A8841E" stroke-width="1.5"/>
+          <rect x="68" y="23" width="44" height="4" rx="2" fill="#F3DC82" opacity="0.7"/>
+          <!-- Nhãn vòm màu kem -->
+          <path d="M50 132 C50 100 130 100 130 132 L130 236 C130 242 125 246 119 246 L61 246 C55 246 50 242 50 236 Z" fill="#F8F3E6" stroke="#DFD5BF" stroke-width="1.5"/>
+          <!-- Logo FreshLab trên nhãn -->
+          <text x="90" y="148" text-anchor="middle" fill="#246B4A" font-size="16" font-weight="700" font-family="Mali, cursive">FreshLab</text>
+          <text x="90" y="160" text-anchor="middle" fill="#66766B" font-size="6.2" font-weight="700" letter-spacing="0.8" font-family="Be Vietnam Pro, sans-serif">COLD PRESSED JUICE</text>
+          <text x="90" y="179" text-anchor="middle" fill="${p.color}" font-size="13.5" font-weight="800" letter-spacing="1" font-family="Be Vietnam Pro, sans-serif">${p.name}</text>
+          <!-- Hình tròn minh họa nguyên liệu -->
+          <circle cx="90" cy="204" r="16" fill="${p.stageBg}" stroke="${p.juiceFill}" stroke-width="1.5"/>
+          <circle cx="84" cy="204" r="6" fill="${p.juiceFill}" opacity="0.9"/>
+          <circle cx="96" cy="206" r="5" fill="${p.color}" opacity="0.55"/>
+          <path d="M88 193 C91 188 96 188 98 192 C94 195 90 195 88 193 Z" fill="#246B4A"/>
+          <text x="90" y="237" text-anchor="middle" fill="#66766B" font-size="7.5" font-weight="600" font-family="Be Vietnam Pro, sans-serif">250 ml</text>
+        </svg>
+      `;
+    }
+
+    /* Render ảnh sản phẩm (dùng URL cấu hình nếu có, ngược lại dùng SVG minh họa) */
+    function renderBottleMedia() {
+      document.querySelectorAll("[data-bottle-slot]").forEach((slot) => {
+        const key = slot.getAttribute("data-bottle-slot");
+        const p = PRODUCTS_DATA[key];
+        const customUrl = FRESHLAB_CONFIG[p.imageKey];
+        if (customUrl && customUrl.trim() !== "") {
+          slot.innerHTML = `<img src="${customUrl}" alt="Chai nước ép FreshLab ${p.name} 250 ml" loading="lazy" />`;
+        } else {
+          slot.innerHTML = createBottleSVG(key);
+        }
+      });
+
+      if (FRESHLAB_CONFIG.LOGO_URL && FRESHLAB_CONFIG.LOGO_URL.trim() !== "") {
+        document.getElementById("headerLogoSlot").innerHTML = `<img src="${FRESHLAB_CONFIG.LOGO_URL}" alt="Logo FreshLab" />`;
+      }
+    }
+
+    /* Render Google Form & Mạng xã hội từ FRESHLAB_CONFIG */
+    function renderConnectSection() {
+      const formSlot = document.getElementById("googleFormSlot");
+      const formNote = document.getElementById("formStatusNote");
+      const formUrl = (FRESHLAB_CONFIG.GOOGLE_FORM_URL || "").trim();
+
+      if (formUrl !== "") {
+        formSlot.innerHTML = `
+          <a href="${formUrl}" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+            Gửi lời nhắn cho FreshLab
+          </a>
+        `;
+        formNote.textContent = "Nhấn nút trên để mở biểu mẫu Google Form đóng góp ý kiến cùng FreshLab.";
+      } else {
+        formSlot.innerHTML = `
+          <button type="button" class="btn btn--secondary" disabled aria-disabled="true" style="opacity:0.8; cursor:not-allowed;">
+            Gửi lời nhắn cho FreshLab (Sắp cập nhật)
+          </button>
+        `;
+        formNote.textContent = "Đường dẫn Google Form đang được nhóm Insight In cập nhật.";
+      }
+
+      const socials = [
+        { name: "TikTok", url: FRESHLAB_CONFIG.TIKTOK_URL },
+        { name: "Instagram", url: FRESHLAB_CONFIG.INSTAGRAM_URL },
+        { name: "Facebook", url: FRESHLAB_CONFIG.FACEBOOK_URL }
+      ];
+
+      const socialSlot = document.getElementById("socialLinksSlot");
+      socialSlot.innerHTML = socials.map((s) => {
+        const cleanUrl = (s.url || "").trim();
+        if (cleanUrl !== "") {
+          return `
+            <a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="social-item">
+              <span>${s.name}</span>
+              <span class="social-badge">Truy cập →</span>
+            </a>
+          `;
+        }
+        return `
+          <div class="social-item" aria-label="${s.name} sắp cập nhật">
+            <span>${s.name}</span>
+            <span class="social-badge">Sắp cập nhật</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    /* Modal chi tiết sản phẩm */
+    function initProductModal() {
+      const modal = document.getElementById("productModal");
+      const stage = document.getElementById("modalStage");
+      const title = document.getElementById("modalTitle");
+      const tagline = document.getElementById("modalTagline");
+      const desc = document.getElementById("modalDesc");
+      const specs = document.getElementById("modalSpecs");
+      const closeBtn = document.getElementById("modalCloseBtn");
+      const backBtn = document.getElementById("modalBackBtn");
+      let lastTrigger = null;
+
+      function openModal(key, trigger) {
+        const p = PRODUCTS_DATA[key];
+        if (!p) return;
+        lastTrigger = trigger;
+
+        const customUrl = (FRESHLAB_CONFIG[p.imageKey] || "").trim();
+        stage.style.backgroundColor = p.stageBg;
+        stage.innerHTML = customUrl
+          ? `<img src="${customUrl}" alt="Chai nước ép FreshLab ${p.name}" />`
+          : `<div style="width:165px">${createBottleSVG(key)}</div>`;
+
+        title.textContent = p.name;
+        title.style.color = p.color;
+        tagline.textContent = p.tagline;
+        desc.textContent = p.desc;
+        specs.innerHTML = `
+          <div><strong>Thành phần dự kiến:</strong> ${p.ingredients}</div>
+          <div><strong>Hương vị định hướng:</strong> ${p.flavor}</div>
+          <div><strong>Tình huống sử dụng:</strong> ${p.occasion}</div>
+          <div><strong>Quy cách đề xuất:</strong> ${p.volume}</div>
+        `;
+
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        closeBtn.focus();
+      }
+
+      function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        if (lastTrigger) lastTrigger.focus();
+      }
+
+      document.querySelectorAll("[data-open-product]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          openModal(btn.getAttribute("data-open-product"), btn);
+        });
+      });
+
+      closeBtn.addEventListener("click", closeModal);
+      backBtn.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+      });
+    }
+
+    /* FAQ Accordion */
+    function initFAQ() {
+      const items = document.querySelectorAll(".faq-item");
+      items.forEach((item) => {
+        const btn = item.querySelector(".faq-trigger");
+        btn.addEventListener("click", () => {
+          const isOpen = item.getAttribute("data-open") === "true";
+          items.forEach((other) => {
+            other.setAttribute("data-open", "false");
+            other.querySelector(".faq-trigger").setAttribute("aria-expanded", "false");
+          });
+          if (!isOpen) {
+            item.setAttribute("data-open", "true");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        });
+      });
+    }
+
+    /* Menu điện thoại */
+    function initMobileNav() {
+      const btn = document.getElementById("hamburgerBtn");
+      const drawer = document.getElementById("mobileDrawer");
+
+      function toggleDrawer(forceState) {
+        const next = typeof forceState === "boolean" ? forceState : !drawer.classList.contains("is-open");
+        drawer.classList.toggle("is-open", next);
+        drawer.setAttribute("aria-hidden", String(!next));
+        btn.setAttribute("aria-expanded", String(next));
+      }
+
+      btn.addEventListener("click", () => toggleDrawer());
+      drawer.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => toggleDrawer(false));
+      });
+    }
+
+    /* Hiệu ứng xuất hiện khi cuộn trang */
+    function initScrollReveal() {
+      const els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach((el) => el.classList.add("is-visible"));
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      els.forEach((el) => observer.observe(el));
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderBottleMedia();
+      renderConnectSection();
+      initProductModal();
+      initFAQ();
+      initMobileNav();
+      initScrollReveal();
+    });
+  </script>
+</body>
+</html>
